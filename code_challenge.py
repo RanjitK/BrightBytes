@@ -19,18 +19,36 @@ def calc(nums):
     Exception: invalid input
     >>> calc("1\\n2,3")
     6
+    >>> calc("//;\\n1;2")
+    3
+    >>> calc("//;\\n1;\\n2")
+    Traceback (most recent call last):
+        ...
+    Exception: invalid input
+    >>> calc("//\\n1,2")
+    Traceback (most recent call last):
+        ...
+    Exception: invalid input
     """
 
     if nums == "":
         return 0
     else:
-        nums = re.split(r"[\n,]", nums)
+        delimiter = ','
 
-        if "" in nums:
+        if re.match(r"(//)(\W)(\n)", nums) != None:
+            delimiter = re.match(r"(//)(\W)(\n)", nums).group(2)
+            nums = nums.replace(re.match(r"(//)(\W)(\n)", nums).group(), "")
+
+        #split on delimiter and newline char
+        nums = re.split(r"[\n %s]"%delimiter, nums)
+
+        try:
+            total = sum(int(i) for i in nums)
+        except:
             raise Exception("invalid input")
 
-        return sum(int(i) for i in nums)
-
+        return total
 
 if __name__ == '__main__':
     import doctest
