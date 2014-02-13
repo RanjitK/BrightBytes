@@ -29,6 +29,15 @@ def calc(nums):
     Traceback (most recent call last):
         ...
     Exception: invalid input
+    >>> calc("1,-4,-5,2")
+    Traceback (most recent call last):
+        ...
+    Exception: negatives not allowed -4,-5
+    >>> calc("//;\\n1:\\n2")
+    Traceback (most recent call last):
+        ...
+    Exception: invalid input
+
     """
 
     if nums == "":
@@ -47,6 +56,11 @@ def calc(nums):
             total = sum(int(i) for i in nums)
         except:
             raise Exception("invalid input")
+
+        neg = filter(lambda x: int(x) < 0, nums)
+
+        if len(neg) > 0:
+            raise Exception("negatives not allowed %s" % ",".join(neg))
 
         return total
 
