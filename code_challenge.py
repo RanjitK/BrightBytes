@@ -1,3 +1,5 @@
+
+
 def calc(nums):
     """calculate sum of numbers
     >>> calc("")
@@ -6,14 +8,17 @@ def calc(nums):
     1
     >>> calc("1,2")
     3
+    >>> calc("1,2,3")
+    6
+    >>> calc("1,2,4,5")
+    12
     """
 
     if nums == "":
         return 0
     else:
         nums = nums.split(",")
-        if len(nums) < 3:
-            return sum(int(i) for i in nums)
+        return sum(int(i) for i in nums)
 
 
 if __name__ == '__main__':
